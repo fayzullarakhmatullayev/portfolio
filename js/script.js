@@ -1,4 +1,32 @@
     new WOW().init();   
+    // Effect typing 
+    const typedTextSpan = document.querySelector(".typed-text")
+  , cursorSpan = document.querySelector(".cursor")
+  , textArray = ["сложно", "забавно", "путешествия", "ЖИЗНЬ"]
+  , typingDelay = 200
+  , erasingDelay = 100
+  , newTextDelay = 2e3;
+    let i = 0
+  , charIndex = 0;
+    function type() {
+        charIndex < textArray[i].length ? (cursorSpan.classList.contains("typing") || cursorSpan.classList.add("typing"),
+        typedTextSpan.textContent += textArray[i].charAt(charIndex),
+        charIndex++,
+        setTimeout(type, typingDelay)) : (cursorSpan.classList.remove("typing"),
+        setTimeout(erase, newTextDelay))
+    }
+    function erase() {
+        charIndex > 0 ? (cursorSpan.classList.contains("typing") || cursorSpan.classList.add("typing"),
+        typedTextSpan.textContent = textArray[i].substring(0, charIndex - 1),
+        charIndex--,
+        setTimeout(erase, erasingDelay)) : (cursorSpan.classList.remove("typing"),
+        ++i >= textArray.length && (i = 0),
+        setTimeout(type, typingDelay + 1100))
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        textArray.length && setTimeout(type, newTextDelay + 250)
+    });
+
     // Toggle nav
     
     $('.header-toggle').click(function (){
